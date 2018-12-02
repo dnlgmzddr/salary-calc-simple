@@ -1,8 +1,8 @@
 import React from "react";
 import { MINIMUM_MONTHLY_WAGE } from '../constants';
 import incomeTaxCalculator from './IncomeTaxCalculator';
-import {Card, Form, FormGroup, Label, Input} from "reactstrap";
-console.log(MINIMUM_MONTHLY_WAGE);
+import {Container, Form, FormGroup, Label, Input} from "reactstrap";
+
 
 
 export default class SalaryCalculator extends React.Component {
@@ -18,7 +18,8 @@ export default class SalaryCalculator extends React.Component {
             pension: 0,
             FSP: 0,
             taxBase: 0,
-            incomeTax: 0
+            incomeTax: 0,
+            netMonthlySalary: 0
         };
 
         this.handleChangeOnBase = this.handleChangeOnBase.bind(this);
@@ -41,6 +42,8 @@ export default class SalaryCalculator extends React.Component {
 
 
         const incomeTax = incomeTaxCalculator.getIncomeTax(taxBase);
+        const netMonthlySalary = grossSalary - incomeTax;
+
 
         this.setState({
             salary: salaryBase,
@@ -48,7 +51,8 @@ export default class SalaryCalculator extends React.Component {
             pension: pension,
             FSP: fsp,
             taxBase: taxBase,
-            incomeTax: incomeTax
+            incomeTax: incomeTax,
+            netMonthlySalary: netMonthlySalary
         });
     }
 
@@ -63,7 +67,7 @@ export default class SalaryCalculator extends React.Component {
 
     render() {
         return (
-            <Card>
+            <Container>
                 <Form onSubmit={this.handleSubmit}>
 
 
@@ -80,26 +84,30 @@ export default class SalaryCalculator extends React.Component {
                     </FormGroup>
                     <FormGroup>
                         <Label>Salud</Label>
-                        <Input type="text" readOnly value={this.state.health}/>
+                        <Input type="text" readOnly value={new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(this.state.health)}/>
                     </FormGroup>
                     <FormGroup>
                         <Label>Pension</Label>
-                        <Input type="text" readOnly value={this.state.pension}/>
+                        <Input type="text" readOnly value={new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(this.state.pension)}/>
                     </FormGroup>
                     <FormGroup>
                         <Label>FSP</Label>
-                        <Input type="text" readOnly value={this.state.FSP}/>
+                        <Input type="text" readOnly value={new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(this.state.FSP)}/>
                     </FormGroup>
                     <FormGroup>
                         <Label>Base gravable</Label>
-                        <Input type="text" readOnly value={this.state.taxBase}/>
+                        <Input type="text" readOnly value={new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(this.state.taxBase)}/>
                     </FormGroup>
                     <FormGroup>
                         <Label>Rete Fuente</Label>
-                        <Input type="text" readOnly value={this.state.incomeTax}/>
+                        <Input type="text" readOnly value={new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(this.state.incomeTax)}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label>Salario Neto Mensual</Label>
+                        <Input type="text" readOnly value={new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(this.state.netMonthlySalary)}/>
                     </FormGroup>
                 </Form>
-            </Card>
+            </Container>
         );
     }
 }

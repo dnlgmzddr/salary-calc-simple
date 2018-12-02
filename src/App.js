@@ -32,7 +32,7 @@ class App extends Component {
                 <Row>
                 {
                     this.state.calculators.map((calc, index) => {
-                       return <Col xs="4" index={index} key={index}> <SalaryCalculator></SalaryCalculator> </Col>
+                       return <Col xs="12" sm="6" md="4" index={index} key={index}> <SalaryCalculator></SalaryCalculator> </Col>
                     })}
                 </Row>
                 <Button onClick={this.addCalc}>add</Button>
