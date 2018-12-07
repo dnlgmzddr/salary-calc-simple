@@ -12,3 +12,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+
+table {
+  display: table;
+}
+table tr {
+  display: table-cell;
+}
+table tr td {
+  display: block;
+}
+.header{
+  font-weight: bold;
+  text-align: right;
+  padding: 10px;
+}
+
+.calculator {
+  text-align: right;
+}
