@@ -2,13 +2,13 @@ import React from "react";
 import {MINIMUM_MONTHLY_WAGE} from "../constants";
 import incomeTaxCalculator from "./IncomeTaxCalculator";
 import ContentEditable from "react-sane-contenteditable";
-import {Table, Button} from "reactstrap";
+
 
 export default class SalaryCalculator extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = this.doCalculation(MINIMUM_MONTHLY_WAGE);
+        this.state = SalaryCalculator.doCalculation(MINIMUM_MONTHLY_WAGE);
 
         this.handleChangeOnBase = this.handleChangeOnBase.bind(this);
 
@@ -16,13 +16,12 @@ export default class SalaryCalculator extends React.Component {
     }
 
     handleChangeOnBase(event, value) {
-        const salaryBase = value;
-        const updatedState = this.doCalculation(salaryBase);
+        const updatedState = SalaryCalculator.doCalculation(value);
         this.setState(updatedState);
     }
 
 
-    doCalculation(salaryBase) {
+    static doCalculation(salaryBase) {
         console.log(MINIMUM_MONTHLY_WAGE);
 
         const health = salaryBase * 0.04;
@@ -52,9 +51,11 @@ export default class SalaryCalculator extends React.Component {
 
     render() {
         return (
-            <table>
-                <tbody>
-                <tr>
+            <tr className={"calculator"}>
+                <td>
+                    Offer Name
+                </td>
+                <td>
                     <ContentEditable
                         tagName="td"
                         content={this.state.salary}
@@ -62,42 +63,39 @@ export default class SalaryCalculator extends React.Component {
                         maxLength={140}
                         multiLine={false}
                         onChange={this.handleChangeOnBase}/>
-                </tr>
-                <tr>
+                </td>
+
                     <td>
                         {new Intl.NumberFormat('es-CO', {style: 'currency', currency: 'COP'}).format(this.state.health)}
                     </td>
-                </tr>
-                <tr>
+
+
                     <td>
                         {new Intl.NumberFormat('es-CO', {
                             style: 'currency',
                             currency: 'COP'
                         }).format(this.state.pension)}
                     </td>
-                </tr>
-                <tr>
+
                     <td>
                         {new Intl.NumberFormat('es-CO', {style: 'currency', currency: 'COP'}).format(this.state.FSP)}
                     </td>
-                </tr>
-                <tr>
+
                     <td>
                         {new Intl.NumberFormat('es-CO', {
                             style: 'currency',
                             currency: 'COP'
                         }).format(this.state.taxBase)}
                     </td>
-                </tr>
-                <tr>
+
                     <td>
                         {new Intl.NumberFormat('es-CO', {
                             style: 'currency',
                             currency: 'COP'
                         }).format(this.state.incomeTax)}
                     </td>
-                </tr>
-                <tr>
+
+
                     <td>
                         {new Intl.NumberFormat('es-CO', {
                             style: 'currency',
@@ -105,8 +103,7 @@ export default class SalaryCalculator extends React.Component {
                         }).format(this.state.netMonthlySalary)}
                     </td>
                 </tr>
-                </tbody>
-            </table>
+
         );
     }
 }
