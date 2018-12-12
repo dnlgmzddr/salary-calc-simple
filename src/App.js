@@ -2,19 +2,21 @@ import React, {Component} from "react";
 import { Button} from "reactstrap";
 import SalaryCalculator from "./calculator/SalaryCalculator";
 
+import shortid from 'shortid';
+
 class App extends Component {
     constructor(props) {
         super(props);
 
-        this.ids = 1;
+
         this.state = {
-            calculators: [this.ids]
+            calculators: [shortid.generate()]
         };
     }
 
     addCalc = () => {
-        this.ids = this.ids + 1;
-        this.state.calculators.push(this.ids);
+
+        this.state.calculators.push(shortid.generate());
         this.setState({
             calculators: this.state.calculators
         });
@@ -28,6 +30,9 @@ class App extends Component {
                     <tr className={"header"}>
                         <td>
                             _______
+                        </td>
+                        <td>
+                            Tipo de vinculación
                         </td>
                         <td>
                             Salario
@@ -54,7 +59,7 @@ class App extends Component {
 
                     {this.state.calculators.map((calc, index) => {
                         return (
-                            <SalaryCalculator index={index} key={index}/>
+                            <SalaryCalculator index={index} key={calc}/>
                         );
                     })}
 
