@@ -25,7 +25,7 @@ export default class SalaryCalculator extends React.Component {
 
 
     handleContractChange(event){
-        const value = event.target.value
+        const value = event.target.value;
         if(value === CONTRACT_TYPES.CONTRATO){
 
         }else if(value === CONTRACT_TYPES.SERVICIOS){
@@ -33,8 +33,7 @@ export default class SalaryCalculator extends React.Component {
         }
     }
 
-    doCalculation(salaryBase) {
-
+    calculateContractSalary(salaryBase){
         const sanitizeSalary = Number(salaryBase);
 
         console.log(MINIMUM_MONTHLY_WAGE);
@@ -61,8 +60,6 @@ export default class SalaryCalculator extends React.Component {
             incomeTax: incomeTax,
             netMonthlySalary: netMonthlySalary
         };
-
-
     }
 
     render() {
